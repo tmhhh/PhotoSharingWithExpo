@@ -1,21 +1,24 @@
-import { Button, Text, View } from "react-native";
+import { Button, Pressable, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/HomeScreen";
 import DetailScreen from "./components/Details";
+import { useRef } from "react";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const sheetRef = useRef(null);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={HomeScreen}
           options={{
             headerTitle: () => <Text>Albums</Text>,
             headerRight: () => (
-              <View
+              <Pressable
+                onPress={() => sheetRef.current.snapTo(0)}
                 style={{
                   // padding: 5,
                   backgroundColor: "#007AFF",
@@ -34,10 +37,12 @@ export default function App() {
                 >
                   +
                 </Text>
-              </View>
+              </Pressable>
             ),
           }}
-        />
+        >
+          {(e) => <HomeScreen {...e} sheetRef={sheetRef} />}
+        </Stack.Screen>
         <Stack.Screen
           name="Detail"
           component={DetailScreen}

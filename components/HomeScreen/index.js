@@ -1,21 +1,62 @@
-import { View, Text, ScrollView } from "react-native";
-import React, { useCallback, useMemo, useRef } from "react";
+import { View, Text, ScrollView, Button, Pressable } from "react-native";
+import React, { useRef } from "react";
 
-// import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet from "reanimated-bottom-sheet";
 
 import Card from "../Card";
 import albumPage from "../../assets/data/albumPage";
-export default function HomeScreen({ navigation }) {
-  const bottomSheetRef = useRef(null);
-
-  // variables
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
-
-  // callbacks
-  const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
+import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
+import { TouchableOpacity } from "react-native-gesture-handler";
+export default function HomeScreen({ navigation, sheetRef }) {
+  const renderContent = () => (
+    <View
+      style={{
+        height: 300,
+        paddingHorizontal: 16,
+        justifyContent: "center",
+        backgroundColor: "#CACACA",
+      }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          backgroundColor: "white",
+          fontSize: 18,
+          fontWeight: "700",
+          borderRadius: 10,
+          overflow: "hidden",
+          paddingVertical: 26,
+        }}
+      >
+        Create a new gallery
+      </Text>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "white",
+          paddingVertical: 16,
+          marginTop: 5,
+          borderRadius: 10,
+          overflow: "hidden",
+          position: "relative",
+          zIndex: 10,
+        }}
+        onPress={() => {
+          console.log("2");
+          sheetRef.current.snapTo(0);
+        }}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            fontSize: 18,
+            fontWeight: "400",
+          }}
+        >
+          Cancel
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
   return (
     <ScrollView>
       <View
@@ -26,32 +67,18 @@ export default function HomeScreen({ navigation }) {
         }}
       >
         {albumPage.map((e, index) => (
-          <>
-            <Card navigation={navigation} key={e.id} {...e} />
-            {index === 1 && (
-              <View
-                key={new Date()}
-                style={{
-                  backgroundColor: "#CACACA",
-                  width: "100%",
-                  height: 2,
-                  marginTop: 16,
-                }}
-              ></View>
-            )}
-          </>
+          <Card navigation={navigation} key={e.id} {...e} />
         ))}
       </View>
-      {/* <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
-        <View style={{ height: "100%" }}>
-          <Text>Awesome 🎉</Text>
-        </View>
-      </BottomSheet> */}
+      <BottomSheet
+        initialSnap={1}
+        ref={sheetRef}
+        snapPoints={[400, 0]}
+        borderRadius={10}
+        // renderHeader={() => <Text>header</Text>}
+        renderContent={renderContent}
+        enabledGestureInteraction={false}
+      />
     </ScrollView>
   );
 }

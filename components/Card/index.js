@@ -39,6 +39,16 @@ function Card({ title, user, background, avatars, id, navigation }) {
           ))}
         </View>
       </ImageBackground>
+      {id === 2 && (
+        <View
+          style={{
+            backgroundColor: "#CACACA",
+            width: "100%",
+            height: 2,
+            marginTop: 16,
+          }}
+        ></View>
+      )}
     </TouchableOpacity>
   );
 }
