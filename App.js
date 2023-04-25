@@ -17,7 +17,7 @@ export default function App() {
             headerRight: () => (
               <View
                 style={{
-                  // padding: 5,
+                  padding: 5,
                   backgroundColor: "#007AFF",
                   height: 32,
                   width: 32,

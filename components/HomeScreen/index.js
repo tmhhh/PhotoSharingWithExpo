@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from "react-native";
 import React, { useCallback, useMemo, useRef } from "react";
 
-// import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import Card from "../Card";
 import albumPage from "../../assets/data/albumPage";
@@ -30,7 +30,6 @@ export default function HomeScreen({ navigation }) {
             <Card navigation={navigation} key={e.id} {...e} />
             {index === 1 && (
               <View
-                key={new Date()}
                 style={{
                   backgroundColor: "#CACACA",
                   width: "100%",
@@ -42,7 +41,7 @@ export default function HomeScreen({ navigation }) {
           </>
         ))}
       </View>
-      {/* <BottomSheet
+      <BottomSheet
         ref={bottomSheetRef}
         index={1}
         snapPoints={snapPoints}
@@ -51,7 +50,7 @@ export default function HomeScreen({ navigation }) {
         <View style={{ height: "100%" }}>
           <Text>Awesome 🎉</Text>
         </View>
-      </BottomSheet> */}
+      </BottomSheet>
     </ScrollView>
   );
 }

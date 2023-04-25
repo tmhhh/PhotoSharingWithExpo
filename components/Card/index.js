@@ -72,7 +72,7 @@ const style = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
     fontWeight: "400",
-    color: "#999",
+    color: "#ffff",
   },
   avatarContainer: {
     flexDirection: "row",
